@@ -231,8 +231,4 @@ document.querySelector('#moment-button').addEventListener('click', () => {
   momentButton.textContent = paused ? 'I’m ready to continue' : 'I need a moment';
 });
 
-<<<<<<< HEAD
 showQuestion();
-=======
-showQuestion();
->>>>>>> f27178a4627c50569972c68658e0f2e08aaa8cfb

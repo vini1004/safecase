@@ -15,8 +15,4 @@ if (!draft) {
   const savedDate = draft.savedAt ? new Date(draft.savedAt) : new Date();
   document.querySelector('#summary-date').textContent = `Prepared ${savedDate.toLocaleDateString()}`;
   document.querySelector('#print-summary').addEventListener('click', () => window.print());
-<<<<<<< HEAD
 }
-=======
-}
->>>>>>> f27178a4627c50569972c68658e0f2e08aaa8cfb
