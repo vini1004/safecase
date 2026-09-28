@@ -43,4 +43,8 @@ if (!draft) {
     emptyMessage.hidden = false;
     emptyMessage.textContent = 'Your draft has been cleared from this browser tab. Start Talk it out again whenever you’re ready.';
   });
+<<<<<<< HEAD
 }
+=======
+}
+>>>>>>> f27178a4627c50569972c68658e0f2e08aaa8cfb
