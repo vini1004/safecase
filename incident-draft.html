@@ -1,0 +1,41 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Review incident draft — SAFECASE</title>
+  <link rel="stylesheet" href="styles.css">
+  <script src="incident-draft.js" defer></script>
+</head>
+<body>
+  <header class="site-header">
+    <a class="brand" href="index.html"><span class="brand-mark" aria-hidden="true">S</span><span class="brand-copy"><strong>SAFECASE</strong><small>Campus safety &amp; dignity</small></span></a>
+    <nav class="main-nav" aria-label="Main navigation"><a href="how-it-works.html">How it works</a><a href="support.html">Support</a><a href="about.html">About</a></nav>
+    <a class="header-action" href="start.html">Your choices <span aria-hidden="true">↗</span></a>
+  </header>
+  <main class="page-shell inner-page draft-page">
+    <a class="back-link" href="talk.html">← Back to Talk it out</a>
+    <p class="eyebrow">Your account · Review before continuing</p>
+    <h1 class="inner-title">Review your incident draft.</h1>
+    <p class="inner-intro">Here’s what you chose to share. You can edit anything or leave a detail blank. SAFECASE doesn’t verify these notes.</p>
+    <div class="privacy-note"><span aria-hidden="true">◌</span><span><strong>This draft stays in this browser tab for this session.</strong> It isn’t sent to anyone. Closing the tab clears it.</span></div>
+    <form class="draft-form" id="draft-form">
+      <label for="draft-story">What would you like to record?</label>
+      <textarea id="draft-story" maxlength="1200" placeholder="You skipped this question, or you can add a note here."></textarea>
+      <div class="draft-field-grid">
+        <label>Has this happened more than once?<select id="draft-repeat"><option value="">Skipped</option><option>Yes</option><option>No</option><option>I’m not sure</option></select></label>
+        <label>Do you have related material?<select id="draft-evidence"><option value="">Skipped</option><option>Yes</option><option>No</option><option>Not right now</option></select></label>
+        <label>Where did this mainly happen?<select id="draft-location"><option value="">Skipped</option><option>On campus</option><option>Online</option><option>Hostel or residence</option><option>Somewhere else</option><option>I’m not sure</option></select></label>
+      </div>
+      <p class="draft-note">This is your account of what you shared. It is not a finding about whether an allegation is true or false.</p>
+      <div class="draft-actions"><button class="primary-link button-link" type="submit">Save draft for this session <span aria-hidden="true">→</span></button><button class="quiet-button" id="clear-draft" type="button">Clear draft</button></div>
+      <p class="draft-status" id="draft-status" aria-live="polite"></p>
+    </form>
+    <section class="after-save" id="after-save" hidden>
+      <div class="saved-mark" aria-hidden="true">✓</div><div><h2>Your draft is ready.</h2><p>Choose whether you want to explore possible next steps.</p><a class="primary-link" href="options.html">Explore what’s next <span aria-hidden="true">→</span></a></div>
+    </section>
+    <p class="draft-empty" id="draft-empty" hidden>No draft was found in this browser tab. <a href="talk.html">Start Talk it out</a> to make one.</p>
+  </main>
+  <footer class="site-footer page-shell"><span>© SAFECASE · A student competition prototype</span><span>You choose what to share and what to do next.</span></footer>
+</body>
+</html>
