@@ -203,6 +203,7 @@ function showSummary() {
     }),
     makeButton('Review incident draft →', 'primary-link button-link', () => {
       const draft = {
+        id: globalThis.crypto?.randomUUID?.() || `draft-${Date.now()}-${Math.random().toString(16).slice(2)}`,
         story: answers.story,
         details: answers.details,
         savedAt: new Date().toISOString()

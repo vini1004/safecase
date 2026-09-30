@@ -4,43 +4,98 @@ const statusMessage = document.querySelector('#draft-status');
 const afterSave = document.querySelector('#after-save');
 
 let draft = null;
+const requestedId = new URLSearchParams(window.location.search).get('id');
 try {
-  draft = JSON.parse(sessionStorage.getItem('safecaseDraft'));
-} catch {
-  draft = null;
+  const savedIncidents = JSON.parse(localStorage.getItem('safecaseIncidents')) || [];
+  draft = requestedId
+    ? savedIncidents.find((item) => item.id === requestedId) || null
+    : JSON.parse(sessionStorage.getItem('safecaseDraft') || localStorage.getItem('safecaseDraft'));
+} catch { draft = null; }
+
+function addOrUpdateIncident(incident) {
+  let incidents = [];
+  try {
+    incidents = JSON.parse(localStorage.getItem('safecaseIncidents')) || [];
+  } catch {
+    incidents = [];
+  }
+  const existingIndex = incidents.findIndex((item) => item.id === incident.id);
+  if (existingIndex === -1) incidents.push(incident);
+  else incidents[existingIndex] = incident;
+  localStorage.setItem('safecaseIncidents', JSON.stringify(incidents));
 }
 
 if (!draft) {
   form.hidden = true;
   emptyMessage.hidden = false;
 } else {
-  const storyField = document.querySelector('#draft-story');
-  const repeatField = document.querySelector('#draft-repeat');
-  const evidenceField = document.querySelector('#draft-evidence');
-  const locationField = document.querySelector('#draft-location');
-  storyField.value = draft.story || '';
-  repeatField.value = draft.details?.[0] || '';
-  evidenceField.value = draft.details?.[1] || '';
-  locationField.value = draft.details?.[2] || '';
+  const fields = {
+    story: document.querySelector('#draft-story'),
+    date: document.querySelector('#draft-date'),
+    time: document.querySelector('#draft-time'),
+    people: document.querySelector('#draft-people'),
+    witness: document.querySelector('#draft-witness'),
+    witnessNotes: document.querySelector('#draft-witness-notes'),
+    disclosed: document.querySelector('#draft-disclosed'),
+    disclosureNotes: document.querySelector('#draft-disclosure-notes'),
+    materialNotes: document.querySelector('#draft-material-notes'),
+    repeat: document.querySelector('#draft-repeat'),
+    evidence: document.querySelector('#draft-evidence'),
+    location: document.querySelector('#draft-location')
+  };
+  fields.story.value = draft.story || '';
+  fields.date.value = draft.occurredDate || '';
+  fields.time.value = draft.occurredTime || '';
+  fields.people.value = draft.people || '';
+  fields.witness.value = draft.witness || '';
+  fields.witnessNotes.value = draft.witnessNotes || '';
+  fields.disclosed.value = draft.disclosed || '';
+  fields.disclosureNotes.value = draft.disclosureNotes || '';
+  fields.materialNotes.value = draft.materialNotes || '';
+  fields.repeat.value = draft.details?.[0] || '';
+  fields.evidence.value = draft.details?.[1] || '';
+  fields.location.value = draft.details?.[2] || '';
 
   form.addEventListener('submit', (event) => {
     event.preventDefault();
     draft = {
-      story: storyField.value.trim(),
-      details: [repeatField.value, evidenceField.value, locationField.value],
+      id: draft.id || `draft-${Date.now()}`,
+      story: fields.story.value.trim(),
+      occurredDate: fields.date.value,
+      occurredTime: fields.time.value,
+      people: fields.people.value.trim(),
+      witness: fields.witness.value,
+      witnessNotes: fields.witnessNotes.value.trim(),
+      disclosed: fields.disclosed.value,
+      disclosureNotes: fields.disclosureNotes.value.trim(),
+      materialNotes: fields.materialNotes.value.trim(),
+      details: [fields.repeat.value, fields.evidence.value, fields.location.value],
+      recordedAt: draft.recordedAt || draft.savedAt || new Date().toISOString(),
       savedAt: new Date().toISOString()
     };
-    sessionStorage.setItem('safecaseDraft', JSON.stringify(draft));
-    statusMessage.textContent = 'Saved in this browser tab for this session.';
+    if (!requestedId || JSON.parse(localStorage.getItem('safecaseDraft') || 'null')?.id === draft.id) {
+      localStorage.setItem('safecaseDraft', JSON.stringify(draft));
+    }
+    addOrUpdateIncident(draft);
+    if (!requestedId) sessionStorage.removeItem('safecaseDraft');
+    statusMessage.textContent = 'Saved in this browser on this device. You can return to it later.';
     afterSave.hidden = false;
     afterSave.scrollIntoView({ behavior: 'smooth', block: 'center' });
   });
 
   document.querySelector('#clear-draft').addEventListener('click', () => {
     sessionStorage.removeItem('safecaseDraft');
+    try {
+      const incidents = JSON.parse(localStorage.getItem('safecaseIncidents')) || [];
+      localStorage.setItem('safecaseIncidents', JSON.stringify(incidents.filter((item) => item.id !== draft.id)));
+    } catch {
+      localStorage.removeItem('safecaseIncidents');
+    }
+    if (JSON.parse(localStorage.getItem('safecaseDraft') || 'null')?.id === draft.id) localStorage.removeItem('safecaseDraft');
     form.hidden = true;
     afterSave.hidden = true;
     emptyMessage.hidden = false;
-    emptyMessage.textContent = 'Your draft has been cleared from this browser tab. Start Talk it out again whenever you’re ready.';
+    emptyMessage.textContent = 'Your draft has been deleted from this browser on this device. Start again whenever you’re ready.';
   });
 }
+
