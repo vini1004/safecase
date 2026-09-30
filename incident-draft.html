@@ -26,15 +26,15 @@
         <label>Incident date <span class="optional-note">optional</span><input id="draft-date" type="date"></label>
         <label>Approximate time <span class="optional-note">optional</span><input id="draft-time" type="time"></label>
         <label>People involved <span class="optional-note">optional</span><input id="draft-people" type="text" maxlength="300" placeholder="Names or roles"></label>
-        <label>Witnesses <span class="optional-note">optional</span><select id="draft-witness"><option value="">Skipped</option><option>Yes</option><option>No</option><option>I’m not sure</option></select></label>
+        <label>Witnesses <span class="optional-note">optional</span><select id="draft-witness"><option value="">Skipped</option><option>Yes</option><option>No</option><option>I’m not sure</option><option>Prefer not to say</option></select></label>
         <label>Witness notes <span class="optional-note">optional</span><input id="draft-witness-notes" type="text" maxlength="300" placeholder="Names are optional"></label>
-        <label>Did you tell anyone afterward? <span class="optional-note">optional</span><select id="draft-disclosed"><option value="">Skipped</option><option>Yes</option><option>No</option><option>I’m not sure</option></select></label>
+        <label>Did you tell anyone afterward? <span class="optional-note">optional</span><select id="draft-disclosed"><option value="">Skipped</option><option>Yes</option><option>No</option><option>I’m not sure</option><option>Prefer not to say</option></select></label>
         <label>Disclosure notes <span class="optional-note">optional</span><input id="draft-disclosure-notes" type="text" maxlength="1000" placeholder="Roughly when, who (role is fine), or what you shared"></label>
         <label>Related material notes <span class="optional-note">optional</span><input id="draft-material-notes" type="text" maxlength="300" placeholder="For example: messages"></label>
       </div>
       <div class="draft-field-grid">
         <label>Has this happened more than once?<select id="draft-repeat"><option value="">Skipped</option><option>Yes</option><option>No</option><option>I’m not sure</option></select></label>
-        <label>Do you have related material?<select id="draft-evidence"><option value="">Skipped</option><option>Yes</option><option>No</option><option>Not right now</option></select></label>
+        <label>Do you have related material?<select id="draft-evidence"><option value="">Skipped</option><option>Yes</option><option>Yes, I have something</option><option>No</option><option>No, I don’t have evidence</option><option>Not right now</option><option>Prefer not to say</option></select></label>
         <label>Where did this mainly happen?<select id="draft-location"><option value="">Skipped</option><option>On campus</option><option>Online</option><option>Hostel or residence</option><option>Somewhere else</option><option>I’m not sure</option></select></label>
       </div>
       <p class="draft-note">This is your account of what you shared. It is not a finding about whether an allegation is true or false.</p>
@@ -42,7 +42,7 @@
       <p class="draft-status" id="draft-status" aria-live="polite"></p>
     </form>
     <section class="after-save" id="after-save" hidden>
-      <div class="saved-mark" aria-hidden="true">✓</div><div><h2>Your note is saved.</h2><p>You can add to it later from My Incidents, or choose a next step now.</p><a class="primary-link" href="options.html">Explore what’s next <span aria-hidden="true">→</span></a></div>
+      <div class="saved-mark" aria-hidden="true">✓</div><div><h2>Your note is saved.</h2><p>Your earlier notes stay saved too. Start a separate note later with “Add another incident” in My Incidents.</p><a class="primary-link" href="options.html">Explore what’s next <span aria-hidden="true">→</span></a></div>
     </section>
     <p class="draft-empty" id="draft-empty" hidden>No draft was found in this browser on this device. <a href="talk.html">Start Talk it out</a> to make one.</p>
   </main>

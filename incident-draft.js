@@ -20,9 +20,11 @@ function addOrUpdateIncident(incident) {
     incidents = [];
   }
   const existingIndex = incidents.findIndex((item) => item.id === incident.id);
+  const isNew = existingIndex === -1;
   if (existingIndex === -1) incidents.push(incident);
   else incidents[existingIndex] = incident;
   localStorage.setItem('safecaseIncidents', JSON.stringify(incidents));
+  return { count: incidents.length, isNew };
 }
 
 if (!draft) {
@@ -76,9 +78,11 @@ if (!draft) {
     if (!requestedId || JSON.parse(localStorage.getItem('safecaseDraft') || 'null')?.id === draft.id) {
       localStorage.setItem('safecaseDraft', JSON.stringify(draft));
     }
-    addOrUpdateIncident(draft);
+    const saveResult = addOrUpdateIncident(draft);
     if (!requestedId) sessionStorage.removeItem('safecaseDraft');
-    statusMessage.textContent = 'Saved in this browser on this device. You can return to it later.';
+    statusMessage.textContent = saveResult.isNew
+      ? `Saved as a separate note. You now have ${saveResult.count} saved ${saveResult.count === 1 ? 'note' : 'notes'}; your earlier notes are still here.`
+      : 'Your saved note has been updated. Your other saved notes are still here.';
     afterSave.hidden = false;
     afterSave.scrollIntoView({ behavior: 'smooth', block: 'center' });
   });
